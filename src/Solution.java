@@ -4,27 +4,23 @@ import java.util.stream.Collectors;
 
 class Solution {
     public int reverse(int x) {
-        boolean isNegative = false;
+        boolean isNegative = x < 0;
         boolean canAdd = false;
-        if (x < 0) isNegative = true;
         if (x == 0) return 0;
         if (-Math.pow(2, 31) >= x || x >= Math.pow(2, 31) - 1) return 0;
 
 
-        String number = Integer.toString(x);
-        if (isNegative) number = number.replace('-', ' ').trim();
+        if (isNegative) x = Math.abs(x);
+        while (x % 10 == 0) x /= 10;
 
-        ArrayList<Character> newNumber = new ArrayList<Character>();
+        String number = Integer.toString(x);
+
+        ArrayList<Character> newNumber = new ArrayList<>();
 
         for (int i = number.length() - 1; i >= 0; i--) {
-            if (number.charAt(i) == '0') {
-                if (canAdd) newNumber.add(number.charAt(i));
-                else {}
-            } else {
-                newNumber.add(number.charAt(i));
-                canAdd = true;
-            }
+            newNumber.add(number.charAt(i));
         }
+
         String betweenStr = newNumber.stream().map(Objects::toString)
                 .collect(Collectors.joining(""));
         if (isNegative) betweenStr = "-" + betweenStr;
