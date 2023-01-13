@@ -7,6 +7,8 @@ class Solution {
         boolean isNegative = false;
         boolean canAdd = false;
         if (x < 0) isNegative = true;
+        if (x == 0) return 0;
+        if (-Math.pow(2, 31) >= x || x >= Math.pow(2, 31) - 1) return 0;
 
 
         String number = Integer.toString(x);
@@ -15,7 +17,7 @@ class Solution {
         ArrayList<Character> newNumber = new ArrayList<Character>();
 
         for (int i = number.length() - 1; i >= 0; i--) {
-            if (number.charAt(i) == 0) {
+            if (number.charAt(i) == '0') {
                 if (canAdd) newNumber.add(number.charAt(i));
                 else {}
             } else {
@@ -29,7 +31,7 @@ class Solution {
 
         int res1 = Integer.parseInt(betweenStr);
 
-        if (-Math.pow(2, 31) <= res1 || res1 <= Math.pow(2, 31) - 1) return 0;
-        else return res1;
+        if (-Math.pow(2, 31) <= res1 || res1 <= Math.pow(2, 31) - 1) return res1;
+        else return 0;
     }
 }
